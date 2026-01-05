@@ -18,7 +18,7 @@ def get_db_connection():
     )
 @app.route("/")
 def home():
-    return render_template("search.html")
+    return render_template("login.html")
 
 @app.route("/search")
 def search():
@@ -32,4 +32,5 @@ def search():
     return render_template("meals.html", meals=meals)
 
 app = app
+
 
