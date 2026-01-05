@@ -27,7 +27,8 @@ def get_db_connection():
         user=os.environ["MYSQLUSER"],
         password=os.environ["MYSQLPASSWORD"],
         database=os.environ["MYSQLDATABASE"],
-        port=int(os.environ["MYSQLPORT"])
+        port=int(os.environ["MYSQLPORT"]),
+        app.secret_key = os.environ["SECRET_KEY"]
     )
 
 # ===============================
@@ -196,5 +197,6 @@ def calculate_nutrition(meal):
 # REQUIRED FOR VERCEL
 # ===============================
 app = app
+
 
 
