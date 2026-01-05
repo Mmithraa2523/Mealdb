@@ -1,12 +1,17 @@
+
 from flask import Flask, render_template, request
 import requests
-
-app = Flask(__name__)
-
-MEALDB_BASE_URL = "https://www.themealdb.com/api/json/v1/1"
-
 import os
 import mysql.connector
+
+# IMPORTANT FIX 👇
+app = Flask(
+    __name__,
+    template_folder="../templates",
+    static_folder="../static"
+)
+
+MEALDB_BASE_URL = "https://www.themealdb.com/api/json/v1/1"
 
 def get_db_connection():
     return mysql.connector.connect(
@@ -16,6 +21,7 @@ def get_db_connection():
         database=os.environ["MYSQLDATABASE"],
         port=int(os.environ["MYSQLPORT"])
     )
+
 @app.route("/")
 def home():
     return render_template("login.html")
@@ -26,11 +32,12 @@ def search():
     meals = []
 
     if q:
-        data = requests.get(f"{MEALDB_BASE_URL}/search.php?s={q}").json()
+        data = requests.get(
+            f"{MEALDB_BASE_URL}/search.php?s={q}"
+        ).json()
         meals = data.get("meals") or []
 
     return render_template("meals.html", meals=meals)
 
+# REQUIRED FOR VERCEL
 app = app
-
-
