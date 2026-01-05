@@ -4,6 +4,6 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "Flask is running on Vercel 🚀"
+    return "MealDB Flask is running on Vercel 🚀"
 
 app = app
