@@ -11,7 +11,7 @@ app = Flask(
     template_folder="../templates",
     static_folder="../static"
 )
-app.secret_key = os.environ.get("SECRET_KEY", "mealdb_secret")
+app.secret_key = os.environ.get("SECRET_KEY", "default_secret")
 
 # ===============================
 # BASE URL
@@ -196,4 +196,5 @@ def calculate_nutrition(meal):
 # REQUIRED FOR VERCEL
 # ===============================
 app = app
+
 
