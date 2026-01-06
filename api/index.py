@@ -52,9 +52,23 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        return "POST reached successfully"
-    return "REGISTER PAGE LOADED"
+        name = request.form["name"]
+        email = request.form["email"]
+        password = request.form["password"]
 
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute(
+            "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)",
+            (name, email, password)
+        )
+        conn.commit()
+        cur.close()
+        conn.close()
+
+        return redirect("/login")
+
+    return render_template("register.html")
 
 @app.route("/logout")
 def logout():
@@ -173,6 +187,7 @@ def calculate_nutrition(meal):
 # REQUIRED FOR VERCEL
 # ===============================
 app = app
+
 
 
 
