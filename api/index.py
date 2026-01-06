@@ -3,37 +3,26 @@ import requests
 import os
 import mysql.connector
 
-# ===============================
-# FLASK APP (IMPORTANT FOR VERCEL)
-# ===============================
 app = Flask(
     __name__,
     template_folder="../templates",
     static_folder="../static"
 )
+
+# SECRET KEY (CORRECT PLACE)
 app.secret_key = os.environ.get("SECRET_KEY", "default_secret")
 
-# ===============================
-# BASE URL
-# ===============================
 MEALDB_BASE_URL = "https://www.themealdb.com/api/json/v1/1"
 
-# ===============================
-# DATABASE CONNECTION (SAFE)
-# ===============================
 def get_db_connection():
     return mysql.connector.connect(
         host=os.environ["MYSQLHOST"],
         user=os.environ["MYSQLUSER"],
         password=os.environ["MYSQLPASSWORD"],
         database=os.environ["MYSQLDATABASE"],
-        port=int(os.environ["MYSQLPORT"]),
-        app.secret_key = os.environ["SECRET_KEY"]
+        port=int(os.environ["MYSQLPORT"])
     )
 
-# ===============================
-# AUTHENTICATION
-# ===============================
 @app.route("/", methods=["GET", "POST"])
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -67,11 +56,11 @@ def register():
     return "REGISTER PAGE LOADED"
 
 
-
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect("/")
+
 
 # ===============================
 # DASHBOARD
@@ -184,6 +173,7 @@ def calculate_nutrition(meal):
 # REQUIRED FOR VERCEL
 # ===============================
 app = app
+
 
 
 
